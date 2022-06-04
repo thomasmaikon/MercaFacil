@@ -11,3 +11,4 @@ Api de cadastro de numeros de celular
 * Cada cliente possue sua propria conexao com o banco, no caso, os utilizados foram MySql e PostreSQL para Macapa e Varejao respectivamente
 * Os clientes so podem cadastrar dados referentes a eles, ou seja, apenas clientes Macapa é que conseguem cadastrar, caso eles tentem cadastrar na API do Varejao o acesso é recusado
 * Para realizarem o cadastro os clientes precisam estar autenticados.
+* Testes os foram implementados para verificar a conexao com o banco
