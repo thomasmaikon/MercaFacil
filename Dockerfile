@@ -4,5 +4,4 @@ WORKDIR /API
 COPY . .
 
 RUN go mod download
-RUN cd tests/
-CMD [ "go", "test" ]
+CMD [ "go", "test" ,"/API/tests/" ]

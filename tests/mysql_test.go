@@ -4,24 +4,17 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"testing"
+	"thomas/projeto_mercafacil/db"
 	"thomas/projeto_mercafacil/models"
-
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
 
 func TestConexaoComBancoMYSQL(t *testing.T) {
-	connect := "admin:admin@tcp(localhost:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
-	_, err := gorm.Open(mysql.Open(connect), &gorm.Config{})
-	if err != nil {
-		t.Log("Falha ao se conectar no banco...")
-		t.Fail()
-	}
+	db.GetTestMySqlConnection()
 }
 
 func TestCadastrarUsuariosMYSQL(t *testing.T) {
-	connect := "admin:admin@tcp(localhost:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
-	db, _ := gorm.Open(mysql.Open(connect), &gorm.Config{})
+
+	db := db.GetTestMySqlConnection()
 	user := models.Macapa{
 		Nome:    "PessoaTESTE",
 		Celular: "5584999999999",
@@ -34,8 +27,7 @@ func TestCadastrarUsuariosMYSQL(t *testing.T) {
 	}
 }
 func TestCadastroMutiplosUsuariosMYSQL(t *testing.T) {
-	var connect string = "admin:admin@tcp(localhost:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
-	db, _ := gorm.Open(mysql.Open(connect), &gorm.Config{})
+	db := db.GetTestMySqlConnection()
 
 	content, _ := ioutil.ReadFile("contacts-macapa.json")
 
@@ -54,8 +46,7 @@ func TestCadastroMutiplosUsuariosMYSQL(t *testing.T) {
 }
 
 func TestBuscarUsuarioMYSQL(t *testing.T) {
-	var connect string = "admin:admin@tcp(localhost:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
-	db, _ := gorm.Open(mysql.Open(connect), &gorm.Config{})
+	db := db.GetTestMySqlConnection()
 
 	var contato models.Macapa
 	err2 := db.Where("nome = ?", "Maria Fernanda Almeida").Find(&contato)

@@ -20,4 +20,3 @@ services:
     environment:
       POSTGRES_PASSWORD: "admin"
       POSTGRES_USER: "admin"
-      DATABASE_HOST: "postg"

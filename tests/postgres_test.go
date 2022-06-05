@@ -4,26 +4,17 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"testing"
+	"thomas/projeto_mercafacil/db"
 	"thomas/projeto_mercafacil/models"
-
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 )
 
 func TestConexaoComBancoPOSTGRESQL(t *testing.T) {
-	// descobrir porque mesmo definindo o host no docker compose, nao funciona
-	var connect string = "host=localhost user=admin password=admin dbname=postgres port=5432 sslmode=disable TimeZone=America/Fortaleza"
-	_, err := gorm.Open(postgres.Open(connect), &gorm.Config{})
-
-	if err != nil {
-		t.Log("Falha ao se conectar no banco...")
-		t.Fail()
-	}
+	db.GetTestPostgresConnection()
 }
 
 func TestCadastroMutiplosUsuariosPOSTGRESQL(t *testing.T) {
-	var connect string = "host=localhost user=admin password=admin dbname=postgres port=5432 sslmode=disable TimeZone=America/Fortaleza"
-	db, _ := gorm.Open(postgres.Open(connect), &gorm.Config{})
+
+	db := db.GetTestPostgresConnection()
 
 	content, _ := ioutil.ReadFile("contacts-varejao.json")
 
