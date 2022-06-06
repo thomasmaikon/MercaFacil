@@ -100,8 +100,13 @@ func AtualizarMacapa(c *gin.Context) {
 	nome := c.Query("nome")
 	numero := c.Query("numero")
 
+	macapa := models.Macapa{
+		Nome:    nome,
+		Celular: numero,
+	}
+
 	if strings.Compare(nome, "") != 0 && strings.Compare(nome, "") != 0 {
-		err := conexao.Model(models.Varejao{}).Where("nome LIKE ?", nome).Updates(models.Macapa{Nome: nome, Celular: numero})
+		err := conexao.Model(models.Macapa{}).Where("nome LIKE ?", macapa.NameFormat()).Updates(models.Macapa{Nome: macapa.NameFormat(), Celular: macapa.NumberFormat()})
 		if err.Error == nil {
 			c.JSON(200, gin.H{
 				"Usuario": nome,
