@@ -15,6 +15,9 @@ func main() {
 	db.GetMysqlConnection()
 	db.GetPostgresConnection()
 
+	// utilizar uma rota para cada operacao e interpretar o tipo de usuario e viavel ate que ponto?
+	// proxima analise - feat
+
 	router.POST("/logar", controller.Login)
 
 	authorized := router.Group("/cadastrar", service.Authorization)
