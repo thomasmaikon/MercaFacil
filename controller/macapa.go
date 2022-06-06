@@ -56,8 +56,9 @@ func ConsultaMacapa(c *gin.Context) {
 func RemoverMacapa(c *gin.Context) {
 	conexao := db.GetMysqlConnection()
 
-	// impedir que usuario admin de macapa possa acessar
-	if validGroup(c.GetHeader("tipo")) {
+	tipo := c.GetHeader("tipo")
+
+	if strings.Compare(tipo, models.TipoMacapa) != 0 {
 		c.JSON(403, gin.H{
 			"info": "Usuario nao pertence a esse grupo",
 		})
@@ -86,8 +87,9 @@ func RemoverMacapa(c *gin.Context) {
 func AtualizarMacapa(c *gin.Context) {
 	conexao := db.GetMysqlConnection()
 
-	// impedir que usuario admin de macapa possa acessar
-	if validGroup(c.GetHeader("tipo")) {
+	tipo := c.GetHeader("tipo")
+
+	if strings.Compare(tipo, models.TipoMacapa) != 0 {
 		c.JSON(403, gin.H{
 			"info": "Usuario nao pertence a esse grupo",
 		})
