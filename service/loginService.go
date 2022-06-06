@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"log"
+	"thomas/projeto_mercafacil/models"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -11,10 +12,11 @@ import (
 
 var secretKEY []byte = []byte("chavehashsupersecreta")
 
-func CreateToken(email string) string {
+func CreateToken(user models.Login) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"foo":   "bar",
-		"email": email,
+		"email": user.Email,
+		"tipo":  user.Tipo,
 		"nbf":   time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 	})
 
@@ -36,8 +38,8 @@ func validateToken(tk string) (bool, string) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		email := claims["email"].(string)
-		return true, email
+		tipo := claims["tipo"].(string)
+		return true, tipo
 	} else {
 		return false, ""
 	}
@@ -50,7 +52,7 @@ func Authorization(c *gin.Context) {
 	authHeader := c.GetHeader("Authorization")
 	tokenString := authHeader[len(BEARER_SCHEMA)+1:]
 
-	ok, email := validateToken(tokenString)
+	ok, tipo := validateToken(tokenString)
 
 	if !ok {
 		c.JSON(401, gin.H{
@@ -59,5 +61,5 @@ func Authorization(c *gin.Context) {
 		c.AbortWithStatus(401)
 	}
 
-	c.Request.Header.Add("email", email)
+	c.Request.Header.Add("tipo", string(tipo))
 }

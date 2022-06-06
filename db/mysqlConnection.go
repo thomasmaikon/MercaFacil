@@ -32,7 +32,7 @@ func testMySqlConnection() *gorm.DB {
 	db.AutoMigrate(&models.Macapa{})
 	db.AutoMigrate(&models.Login{})
 
-	db.Create(&models.Login{Email: "admin-macapa", Senha: "admin", Tipo: 1})
+	db.Create(&models.Login{Email: "admin-macapa", Senha: "admin", Tipo: models.TipoMacapa})
 
 	return db
 }
@@ -57,7 +57,7 @@ func mysqlConnection() *gorm.DB {
 	db.AutoMigrate(&models.Macapa{})
 	db.AutoMigrate(&models.Login{})
 
-	db.Create(&models.Login{Email: "admin-macapa", Senha: "admin", Tipo: 1})
+	db.Create(&models.Login{Email: "admin-macapa", Senha: "admin", Tipo: models.TipoMacapa})
 
 	return db
 }

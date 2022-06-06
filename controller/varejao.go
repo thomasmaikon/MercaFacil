@@ -10,13 +10,10 @@ import (
 func CadastroVarejao(c *gin.Context) {
 	conexao := db.GetPostgresConnection()
 
-	email := c.GetHeader("email")
-
-	var login models.Login
-	conexao.Where("email = ?", email).Find(&login)
+	tipo := c.GetHeader("tipo")
 
 	// impedir que usuario admin de macapa possa acessar
-	if login.Tipo != 2 {
+	if tipo != models.TipoVarejao {
 		c.JSON(403, gin.H{
 			"info": "Usuario nao pertence a esse grupo",
 		})

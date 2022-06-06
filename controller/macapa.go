@@ -10,12 +10,9 @@ import (
 func CadastroMacapa(c *gin.Context) {
 	conexao := db.GetMysqlConnection()
 
-	email := c.GetHeader("email")
+	tipo := c.GetHeader("tipo")
 
-	var login models.Login
-	conexao.Where("email = ?", email).Find(&login)
-
-	if login.Tipo != 1 {
+	if tipo != models.TipoMacapa {
 		c.JSON(403, gin.H{
 			"info": "Usuario nao pertence a esse grupo",
 		})

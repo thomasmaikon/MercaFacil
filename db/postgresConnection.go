@@ -33,7 +33,7 @@ func testPostgresConnection() *gorm.DB {
 	db.AutoMigrate(&models.Varejao{})
 	db.AutoMigrate(&models.Login{})
 	// inicializa usuario admin para testar cadastro
-	db.Create(&models.Login{Email: "admin-varejao", Senha: "admin", Tipo: 2})
+	db.Create(&models.Login{Email: "admin-varejao", Senha: "admin", Tipo: models.TipoVarejao})
 
 	return db
 }
@@ -58,7 +58,7 @@ func postgresConnection() *gorm.DB {
 	db.AutoMigrate(&models.Varejao{})
 	db.AutoMigrate(&models.Login{})
 	// inicializa usuario admin para testar cadastro
-	db.Create(&models.Login{Email: "admin-varejao", Senha: "admin", Tipo: 2})
+	db.Create(&models.Login{Email: "admin-varejao", Senha: "admin", Tipo: models.TipoVarejao})
 
 	return db
 }
