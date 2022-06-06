@@ -30,6 +30,20 @@ func main() {
 		consulta.GET("/varejao", controller.ConsultaVarejao)
 	}
 
+	remover := router.Group("/remover", service.Authorization)
+	remover.Use(service.Authorization)
+	{
+		remover.DELETE("/macapa", controller.RemoverMacapa)
+		remover.DELETE("/varejao", controller.RemoverVarejao)
+	}
+
+	atualizar := router.Group("/atualizar", service.Authorization)
+	atualizar.Use(service.Authorization)
+	{
+		atualizar.PUT("/macapa", controller.AtualizarMacapa)
+		atualizar.PUT("/varejao", controller.AtualizarVarejao)
+	}
+
 	router.Run(":8000")
 
 }

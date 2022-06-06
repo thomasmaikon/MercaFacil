@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"strings"
 	"thomas/projeto_mercafacil/db"
 	"thomas/projeto_mercafacil/models"
 
@@ -49,5 +50,66 @@ func ConsultaMacapa(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"result": users,
+	})
+}
+
+func RemoverMacapa(c *gin.Context) {
+	conexao := db.GetMysqlConnection()
+
+	// impedir que usuario admin de macapa possa acessar
+	if validGroup(c.GetHeader("tipo")) {
+		c.JSON(403, gin.H{
+			"info": "Usuario nao pertence a esse grupo",
+		})
+
+		return
+	}
+
+	nome := c.Query("nome")
+
+	if strings.Compare(nome, "") != 0 {
+		err := conexao.Where("nome LIKE ?", nome).Delete(&models.Macapa{})
+		if err.Error == nil {
+			c.JSON(200, gin.H{
+				"Usuario": nome,
+				"Info":    "Removido com sucesso",
+			})
+			return
+		}
+	}
+
+	c.JSON(400, gin.H{
+		"Info": "dados enviados invalidos",
+	})
+}
+
+func AtualizarMacapa(c *gin.Context) {
+	conexao := db.GetMysqlConnection()
+
+	// impedir que usuario admin de macapa possa acessar
+	if validGroup(c.GetHeader("tipo")) {
+		c.JSON(403, gin.H{
+			"info": "Usuario nao pertence a esse grupo",
+		})
+
+		return
+	}
+
+	nome := c.Query("nome")
+	numero := c.Query("numero")
+
+	if strings.Compare(nome, "") != 0 && strings.Compare(nome, "") != 0 {
+		err := conexao.Model(models.Varejao{}).Where("nome LIKE ?", nome).Updates(models.Macapa{Nome: nome, Celular: numero})
+		if err.Error == nil {
+			c.JSON(200, gin.H{
+				"Usuario": nome,
+				"Info":    "Atualizado com sucesso",
+			})
+			return
+		}
+	}
+
+	c.JSON(400, gin.H{
+		"Info": "dados enviados invalidos",
 	})
 }
