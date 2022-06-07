@@ -4,6 +4,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+      ports:
+        - "8000:8000"
 
   mysql:
     container_name: mysql
