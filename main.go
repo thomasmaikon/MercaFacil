@@ -48,6 +48,6 @@ func main() {
 		atualizar.PUT("/varejao", controller.AtualizarVarejao)
 	}
 
-	router.Run(":8080")
+	router.Run(":8000")
 
 }
