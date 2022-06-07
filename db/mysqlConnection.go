@@ -3,18 +3,27 @@ package db
 import (
 	"fmt"
 	"log"
+	"os"
 	"thomas/projeto_mercafacil/models"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 var dbMySql *gorm.DB
 
-func GetMysqlConnection() *gorm.DB {
+func SetMysqlConnection(file string) *gorm.DB {
 	if dbMySql == nil {
-		dbMySql = mysqlConnection("admin", "admin", "mysql", "3306", "admin")
+		godotenv.Load(file)
+
+		dbMySql = mysqlConnection(os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASSWORD"),
+			os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT"), os.Getenv("MYSQL_DATABASE"))
 	}
+	return dbMySql
+}
+
+func GetMysqlConnection() *gorm.DB {
 	return dbMySql
 }
 

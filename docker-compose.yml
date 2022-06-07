@@ -1,14 +1,5 @@
 version: "3"
 services:
-  app:
-    container_name: aplicacao
-    build:
-      dockerfile: Dockerfile
-      context: .
-    restart: always
-    ports:
-      - "8000:8000"
-
   mysql:
     container_name: mysql
     image: mysql

@@ -3,19 +3,29 @@ package db
 import (
 	"fmt"
 	"log"
+	"os"
 	"thomas/projeto_mercafacil/models"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var dbPostgres *gorm.DB
 
-func GetPostgresConnection() *gorm.DB {
+func SetPostgresConnection(file string) *gorm.DB {
 
 	if dbPostgres == nil {
-		dbPostgres = postgresConnection("postgres", "admin", "admin", "postgres", "5432")
+		godotenv.Load(file)
+
+		dbPostgres = postgresConnection(os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_USER"),
+			os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"), os.Getenv("POSTGRES_PORT"))
 	}
+	return dbPostgres
+}
+
+func GetPostgresConnection() *gorm.DB {
+
 	return dbPostgres
 }
 
