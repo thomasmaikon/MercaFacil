@@ -12,12 +12,15 @@ import (
 var dbMySql *gorm.DB
 
 func GetMysqlConnection() *gorm.DB {
+	if dbMySql == nil {
+		dbMySql = mysqlConnection("admin", "admin", "localhost", "3306", "admin")
+	}
 	return dbMySql
 }
 
-func mysqlConnection(user, password, host, port, dbname string) {
+func mysqlConnection(user, password, host, port, dbname string) *gorm.DB {
 
-	connect := "admin:admin@tcp(mysql:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
+	connect := user + ":" + password + "@(" + host + ":" + port + ")/" + dbname + "?charset=utf8mb4&parseTime=True&loc=Local"
 
 	db, err := gorm.Open(mysql.Open(connect), &gorm.Config{})
 
@@ -35,5 +38,5 @@ func mysqlConnection(user, password, host, port, dbname string) {
 
 	db.Create(&models.Login{Email: "admin-macapa", Senha: "admin", Tipo: models.TipoMacapa})
 
-	dbMySql = db
+	return db
 }

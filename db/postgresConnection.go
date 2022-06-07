@@ -12,10 +12,14 @@ import (
 var dbPostgres *gorm.DB
 
 func GetPostgresConnection() *gorm.DB {
+
+	if dbPostgres == nil {
+		dbPostgres = postgresConnection("localhost", "admin", "admin", "postgres", "5432")
+	}
 	return dbPostgres
 }
 
-func postgresConnection(host, user, password, dbname, port string) {
+func postgresConnection(host, user, password, dbname, port string) *gorm.DB {
 
 	host = "host=" + host
 	user = "user=" + user
@@ -40,5 +44,5 @@ func postgresConnection(host, user, password, dbname, port string) {
 	// inicializa usuario admin para testar cadastro, se ja existir ele informa que usuario ja existe
 	db.Create(&models.Login{Email: "admin-varejao", Senha: "admin", Tipo: models.TipoVarejao})
 
-	dbPostgres = db
+	return db
 }
