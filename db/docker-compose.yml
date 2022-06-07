@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
       image: mysql
+      container_name: mysql_container
       environment:
       - MYSQL_ROOT_PASSWORD=admin
       - MYSQL_DATABASE=admin
@@ -15,6 +16,7 @@ services:
 
   postgresql:
     image: postgres
+    container_name: postgres_container
     ports:
       - "5432:5432"
     environment:

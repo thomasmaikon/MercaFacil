@@ -1,14 +1,6 @@
 package tests
 
-import (
-	"encoding/json"
-	"io/ioutil"
-	"testing"
-	"thomas/projeto_mercafacil/db"
-	"thomas/projeto_mercafacil/models"
-)
-
-func TestConexaoComBancoMYSQL(t *testing.T) {
+/* func TestConexaoComBancoMYSQL(t *testing.T) {
 	db.GetTestMySqlConnection()
 }
 
@@ -56,3 +48,4 @@ func TestBuscarUsuarioMYSQL(t *testing.T) {
 		t.Fail()
 	}
 }
+*/

@@ -12,8 +12,7 @@ func main() {
 
 	router := gin.New()
 
-	db.GetMysqlConnection()
-	db.GetPostgresConnection()
+	db.Setup()
 
 	// utilizar uma rota para cada operacao e interpretar o tipo de usuario e viavel ate que ponto?
 	// proxima analise - feat

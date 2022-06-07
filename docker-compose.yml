@@ -6,6 +6,7 @@ services:
       context: .
 
   mysql:
+    container_name: mysql
     image: mysql
     environment:
     - MYSQL_ROOT_PASSWORD=admin
@@ -14,13 +15,14 @@ services:
     - MYSQL_PASSWORD=admin
     - MYSQL_ROOT_HOST=%
     ports:
-      - "3305:3306"
+      - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
 
   postgresql:
     image: postgres
+    container_name: postgres
     ports:
-      - "5431:5432"
+      - "5436:5432"
     environment:
       POSTGRES_PASSWORD: "admin"
       POSTGRES_USER: "admin"

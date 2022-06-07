@@ -1,14 +1,6 @@
 package tests
 
-import (
-	"encoding/json"
-	"io/ioutil"
-	"testing"
-	"thomas/projeto_mercafacil/db"
-	"thomas/projeto_mercafacil/models"
-)
-
-func TestConexaoComBancoPOSTGRESQL(t *testing.T) {
+/* func TestConexaoComBancoPOSTGRESQL(t *testing.T) {
 	db.GetTestPostgresConnection()
 }
 
@@ -30,7 +22,7 @@ func TestCadastroMutiplosUsuariosPOSTGRESQL(t *testing.T) {
 		}
 	}
 
-}
+} */
 
 // var postg *sql.DB
 
