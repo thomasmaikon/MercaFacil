@@ -7,19 +7,19 @@ Api de cadastro de numeros de celular
 
 Para utilizar essa aplicação é necessario que siga, pelo menos, os seguintes passos:
 
-:warning: OBS(Utilizar o ```shell sudo```, antes dos comandos que utilizam o dokcer, caso seu usuario nao tenha permisao)
+:warning: OBS(Utilizar o ```sudo```, antes dos comandos que utilizam o dokcer, caso seu usuario nao tenha permisao)
 
 1. Instalar o Docker na sua maquina
 2. Clonar o repositório
-```shell git clone https://github.com/thomasmaikon/MercaFacil.git ```
+```git clone https://github.com/thomasmaikon/MercaFacil.git ```
 3. Construir a imagem referente a aplicação. 
-```shell docker build --tag aplication:1.0.0 . ```
+```docker build --tag aplication:1.0.0 . ```
 4. Criar uma rede local para que o container da aplicacao, criado anterior mente possa conectar-se com os bancos que criaremos no proximo passo.
-```shell docker network create --drive bridge backend```
+```docker network create --drive bridge backend```
 1. Rodams executamos nosso docker compose para rodar o banco PostgreSQL e MySQL
-```shell docker compose up -d```
+```docker compose up -d```
 6. Por fim executamos a imagem, que foi criada no topico 3, com alguns parametros
-```shell docker run -p 8000:8000 --network=backend --name=app```
+```docker run -p 8000:8000 --network=backend --name=app```
 
 ---
 
@@ -39,8 +39,8 @@ Para utilizar essa aplicação é necessario que siga, pelo menos, os seguintes 
 
 Este projeto foi criado utilizando:
 
-[Go(1.18.3)](https://go.dev/doc/)
-[Gorm(1.23.5)](https://github.com/gin-gonic/gin)
-[Gin(1.8.1)](https://gorm.io/index.html)
-[jwt-go](https://github.com/dgrijalva/jwt-go)
-[Docker(20.10.10)](https://docs.docker.com/)
+[Go(1.18.3)](https://go.dev/doc/)   
+[Gorm(1.23.5)](https://github.com/gin-gonic/gin)   
+[Gin(1.8.1)](https://gorm.io/index.html)   
+[jwt-go](https://github.com/dgrijalva/jwt-go)   
+[Docker(20.10.10)](https://docs.docker.com/)   
