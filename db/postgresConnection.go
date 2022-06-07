@@ -14,7 +14,7 @@ var dbPostgres *gorm.DB
 func GetPostgresConnection() *gorm.DB {
 
 	if dbPostgres == nil {
-		dbPostgres = postgresConnection("localhost", "admin", "admin", "postgres", "5432")
+		dbPostgres = postgresConnection("postgres", "admin", "admin", "postgres", "5432")
 	}
 	return dbPostgres
 }

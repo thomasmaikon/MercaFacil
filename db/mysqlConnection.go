@@ -13,7 +13,7 @@ var dbMySql *gorm.DB
 
 func GetMysqlConnection() *gorm.DB {
 	if dbMySql == nil {
-		dbMySql = mysqlConnection("admin", "admin", "localhost", "3306", "admin")
+		dbMySql = mysqlConnection("admin", "admin", "mysql", "3306", "admin")
 	}
 	return dbMySql
 }
