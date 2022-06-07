@@ -1,5 +1,28 @@
 package tests
 
+import (
+	"fmt"
+	"log"
+	"testing"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+func TestXxx(t *testing.T) {
+	connect := "admin:admin@tcp(localhost:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
+
+	_, err := gorm.Open(mysql.Open(connect), &gorm.Config{})
+	if err != nil {
+		fmt.Println("Falha ao se conecctar com MYSQL")
+		fmt.Println(connect)
+		log.Fatalln(err)
+	} else {
+		fmt.Println("Conexao:")
+		fmt.Println(connect)
+	}
+}
+
 /* func TestConexaoComBancoMYSQL(t *testing.T) {
 	db.GetTestMySqlConnection()
 }

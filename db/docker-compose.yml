@@ -22,3 +22,8 @@ services:
     environment:
       POSTGRES_PASSWORD: "admin"
       POSTGRES_USER: "admin"
+
+networks:
+  default:
+    name: backend
+    external: true
