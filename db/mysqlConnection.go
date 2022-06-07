@@ -17,7 +17,7 @@ func GetMysqlConnection() *gorm.DB {
 
 func mysqlConnection(user, password, host, port, dbname string) {
 
-	connect := user + ":" + password + "@(" + host + ":" + port + ")/" + dbname + "?charset=utf8mb4&parseTime=True&loc=Local"
+	connect := "admin:admin@tcp(mysql:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
 
 	db, err := gorm.Open(mysql.Open(connect), &gorm.Config{})
 
