@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"strings"
 	"thomas/projeto_mercafacil/controller"
 	"thomas/projeto_mercafacil/db"
 	"thomas/projeto_mercafacil/service"
@@ -8,16 +10,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func setup(ambiente string) {
+
+	if strings.Compare(ambiente, "local") == 0 {
+		db.SetPostgresConnection("local.env")
+		db.SetMysqlConnection("local.env")
+	} else {
+		db.SetPostgresConnection("producao.env")
+		db.SetMysqlConnection("producao.env")
+	}
+
+}
+
 func main() {
 
+	setup(os.Args[1])
+
 	router := gin.New()
-
-	//db.Setup()
-	db.SetPostgresConnection("producao.env")
-	db.SetMysqlConnection("producao.env")
-
-	// utilizar uma rota para cada operacao e interpretar o tipo de usuario e viavel ate que ponto?
-	// proxima analise - feat
 
 	router.POST("/logar", controller.Login)
 
