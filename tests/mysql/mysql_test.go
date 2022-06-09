@@ -11,24 +11,28 @@ import (
 	"thomas/projeto_mercafacil/models"
 
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/ory/dockertest"
+	"github.com/ory/dockertest/v3"
 )
 
 var db *sql.DB
 
 func TestMain(m *testing.M) {
+	// conectando com o docker da maquina
 	pool, err := dockertest.NewPool("")
 	if err != nil {
 		log.Fatalf("Maquina nao tem Docker: %s", err)
 	}
 
+	// definindo container
 	resource, err := pool.Run("mysql", "5.7", []string{"MYSQL_ROOT_PASSWORD=admin",
 		"MYSQL_DATABASE=admin", "MYSQL_USER=admin", "MYSQL_PASSWORD=admin", "MYSQL_ROOT_HOST=%"})
+
+	resource.Expire(60 * 5)
 	if err != nil {
 		log.Fatalf("Nao foi possivel inicializar o container: %s", err)
 	}
 
+	// tentando conectar com o container
 	if err := pool.Retry(func() error {
 		var err error
 		db, err = sql.Open("mysql", fmt.Sprintf("admin:admin@(localhost:%s)/admin?parseTime=true", resource.GetPort("3306/tcp")))
@@ -39,6 +43,9 @@ func TestMain(m *testing.M) {
 	}); err != nil {
 		log.Fatalf("Nao foi possivel se conectar ao container: %s", err)
 	}
+
+	// Os testes tem ate 5 minutos para serem executados
+	resource.Expire(60 * 5)
 
 	// criar sistema para realizar migrations semelhante ao flyway
 	db.Exec(`CREATE table contacts (id serial PRIMARY KEY, nome VARCHAR ( 200 ) NOT NULL, celular VARCHAR ( 20 ) NOT NULL);`)

@@ -7,6 +7,7 @@ require github.com/ory/dockertest v3.3.5+incompatible
 require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	github.com/lib/pq v1.10.6 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 )
 
