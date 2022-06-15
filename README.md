@@ -43,4 +43,6 @@ Este projeto foi criado utilizando:
 [Gorm(1.23.5)](https://github.com/gin-gonic/gin)   
 [Gin(1.8.1)](https://gorm.io/index.html)   
 [jwt-go](https://github.com/dgrijalva/jwt-go)   
+[Dockertest](https://github.com/ory/dockertest)   
 [Docker(20.10.10)](https://docs.docker.com/)   
+
