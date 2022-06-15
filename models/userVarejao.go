@@ -4,8 +4,8 @@ import "strings"
 
 type Varejao struct {
 	Id      int    `gorm:"primaryKey; autoincrement"`
-	Nome    string `json:"name" gorm:"unique; not null; varchar(200)"`
-	Celular string `json:"cellphone" gorm:"not null; varchar(13)"`
+	Nome    string `gorm:"unique; not null; varchar(200)"`
+	Celular string `gorm:"not null; varchar(13)"`
 }
 
 type ListVarejaoUsers struct {

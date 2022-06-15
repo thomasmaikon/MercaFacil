@@ -25,7 +25,6 @@ func SetPostgresConnection(file string) *gorm.DB {
 }
 
 func GetPostgresConnection() *gorm.DB {
-
 	return dbPostgres
 }
 

@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"log"
 	"strings"
 	"thomas/projeto_mercafacil/db"
 	"thomas/projeto_mercafacil/models"
+	"thomas/projeto_mercafacil/service"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,36 +14,34 @@ func validGroup(str string) bool {
 	return strings.Compare(str, models.TipoVarejao) != 0
 }
 
-func CadastroVarejao(c *gin.Context) {
-	conexao := db.GetPostgresConnection()
+func Cadastro(c *gin.Context) {
 
-	// impedir que usuario admin de macapa possa acessar
-	if validGroup(c.GetHeader("tipo")) {
-		c.JSON(403, gin.H{
-			"info": "Usuario nao pertence a esse grupo",
-		})
-
-		return
-	}
-
-	usr := models.ListVarejaoUsers{}
+	usr := models.ListUsuarios{}
 
 	c.BindJSON(&usr)
 
-	for i := 0; i < len(usr.Usrs); i++ {
-		err := conexao.Save(usr.Usrs[i].Format())
+	factory := service.FactoryUser{}
 
-		if err.Error != nil {
+	usuarios, repository, erro := factory.GetUserDB(c.GetHeader("tipo"), usr.Usrs)
+
+	if erro != nil {
+		log.Fatalln(erro)
+	}
+
+	for _, newUser := range usuarios {
+		err := repository.Create(newUser)
+		if err != nil {
 			c.JSON(403, gin.H{
 				"info":    "Usuario ja existente",
-				"usuario": usr.Usrs[i],
+				"usuario": usuarios,
 			})
 			return
 		}
 	}
 
 	c.JSON(201, gin.H{
-		"result": "Todos os contatos foram cadastrados com sucesso",
+		"Info":     "Usuarios cadastrados",
+		"usuarios": usuarios,
 	})
 }
 

@@ -30,12 +30,13 @@ func main() {
 
 	router.POST("/logar", controller.Login)
 
-	authorized := router.Group("/cadastrar", service.Authorization)
+	router.POST("/cadastrar", service.Authorization, controller.Cadastro)
+	/* authorized := router.Group("/cadastrar", service.Authorization)
 	authorized.Use(service.Authorization)
 	{
-		authorized.POST("/macapa", controller.CadastroMacapa)
-		authorized.POST("/varejao", controller.CadastroVarejao)
-	}
+		//authorized.POST("/macapa", controller.CadastroMacapa)
+		authorized.POST("/", controller.Cadastro)
+	} */
 
 	consulta := router.Group("/consultar")
 	{
