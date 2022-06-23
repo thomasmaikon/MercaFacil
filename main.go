@@ -30,32 +30,13 @@ func main() {
 
 	router.POST("/logar", controller.Login)
 
-	router.POST("/cadastrar", service.Authorization, controller.Cadastro)
-	/* authorized := router.Group("/cadastrar", service.Authorization)
-	authorized.Use(service.Authorization)
+	autorizacao := router.Group("/", service.Authorization)
+	autorizacao.Use(service.Authorization)
 	{
-		//authorized.POST("/macapa", controller.CadastroMacapa)
-		authorized.POST("/", controller.Cadastro)
-	} */
-
-	consulta := router.Group("/consultar")
-	{
-		consulta.GET("/macapa", controller.ConsultaMacapa)
-		consulta.GET("/varejao", controller.ConsultaVarejao)
-	}
-
-	remover := router.Group("/remover", service.Authorization)
-	remover.Use(service.Authorization)
-	{
-		remover.DELETE("/macapa", controller.RemoverMacapa)
-		remover.DELETE("/varejao", controller.RemoverVarejao)
-	}
-
-	atualizar := router.Group("/atualizar", service.Authorization)
-	atualizar.Use(service.Authorization)
-	{
-		atualizar.PUT("/macapa", controller.AtualizarMacapa)
-		atualizar.PUT("/varejao", controller.AtualizarVarejao)
+		autorizacao.POST("/cadastrar", controller.Cadastro)
+		autorizacao.GET("/consultar", controller.Consulta)
+		autorizacao.DELETE("/remover", controller.Remover)
+		autorizacao.PUT("/atualizar", controller.Atualizar)
 	}
 
 	router.Run(":8000")

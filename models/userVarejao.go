@@ -8,10 +8,6 @@ type Varejao struct {
 	Celular string `gorm:"not null; varchar(13)"`
 }
 
-type ListVarejaoUsers struct {
-	Usrs []Varejao `json:"contacts"`
-}
-
 func (v Varejao) Format() *Varejao {
 	return &Varejao{
 		Nome:    v.NameFormat(),

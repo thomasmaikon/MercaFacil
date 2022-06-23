@@ -6,8 +6,31 @@ type MySQL struct {
 	Conexao *gorm.DB
 }
 
-func (p MySQL) Create(usr User) error {
+func (m MySQL) Create(usr User) error {
 	v := Macapa{Nome: usr.NameFormat(), Celular: usr.NumberFormat()}
-	result := p.Conexao.Create(&v)
+	result := m.Conexao.Create(&v)
 	return result.Error
+}
+
+func (m MySQL) Find() ([]User, error) {
+	var all []Macapa
+	result := m.Conexao.Find(&all)
+
+	// Go nao permite tipagem na heranca
+	var users []User
+	for _, usr := range all {
+		users = append(users, usr)
+	}
+	return users, result.Error
+}
+
+func (m MySQL) Delete(nome string) error {
+	result := m.Conexao.Where("nome LIKE ?", nome).Delete(&Macapa{})
+	return result.Error
+}
+
+func (m MySQL) Update(id string, usr User) (User, error) {
+	newUser := Macapa{Nome: usr.NameFormat(), Celular: usr.NumberFormat()}
+	result := m.Conexao.Model(Varejao{}).Where("id LIKE ?", id).Updates(newUser.Format())
+	return newUser, result.Error
 }
