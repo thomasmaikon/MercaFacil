@@ -1,5 +1,5 @@
 # MercaFacil
-Api de cadastro de numeros de celular
+Api de cadastro de informações utilizando diferentes bancos de dados e JWT, cada usuario pertencente a seu tipo se relaciona com um banco diferente, uma vez que eles possuem especificidades no cadastramento dos dados.
 
 ---
 
