@@ -98,9 +98,9 @@ func Atualizar(c *gin.Context) {
 	c.BindJSON(&usr)
 	id := c.Query("id")
 
-	newUser, err := repository.Update(id, usr)
+	newUser, success := repository.Update(id, usr)
 
-	if err == nil {
+	if success == nil {
 		c.JSON(200, gin.H{
 			"Usuario": newUser,
 			"Info":    "Atualizado com sucesso",
