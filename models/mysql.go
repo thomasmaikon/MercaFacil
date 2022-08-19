@@ -1,6 +1,11 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"errors"
+	"strings"
+
+	"gorm.io/gorm"
+)
 
 type MySQL struct {
 	Conexao *gorm.DB
@@ -33,4 +38,15 @@ func (m MySQL) Update(id string, usr User) (User, error) {
 	newUser := Macapa{Nome: usr.NameFormat(), Celular: usr.NumberFormat()}
 	result := m.Conexao.Model(Varejao{}).Where("id LIKE ?", id).Updates(newUser.Format())
 	return newUser, result.Error
+}
+
+func (m MySQL) FindByUser(usuario Login) (Login, error) {
+
+	var usr Login
+	m.Conexao.Where(&usuario).Find(&usr)
+
+	if strings.Compare(usr.Email, usuario.Email) == 0 {
+		return usr, nil
+	}
+	return usr, errors.New("Usuario nao Encontrado")
 }

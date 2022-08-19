@@ -5,4 +5,5 @@ type Banco interface {
 	Find() ([]User, error)
 	Delete(nome string) error
 	Update(id string, usr User) (User, error)
+	FindByUser(userLogin Login) (Login, error)
 }

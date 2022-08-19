@@ -1,6 +1,11 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"errors"
+	"strings"
+
+	"gorm.io/gorm"
+)
 
 type Postgres struct {
 	Conexao *gorm.DB
@@ -33,4 +38,15 @@ func (p Postgres) Update(id string, usr User) (User, error) {
 	newUser := Varejao{Nome: usr.NameFormat(), Celular: usr.NumberFormat()}
 	result := p.Conexao.Model(Varejao{}).Where("id = ?", id).Updates(newUser.Format())
 	return newUser, result.Error
+}
+
+func (p Postgres) FindByUser(usuario Login) (Login, error) {
+
+	var usr Login
+	p.Conexao.Where(&usuario).Find(&usr)
+
+	if strings.Compare(usr.Email, usuario.Email) == 0 {
+		return usr, nil
+	}
+	return usr, errors.New("Usuario nao Encontrado")
 }

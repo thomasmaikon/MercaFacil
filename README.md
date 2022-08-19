@@ -19,7 +19,7 @@ Para utilizar essa aplicação é necessario que siga, pelo menos, os seguintes 
 1. Rodams executamos nosso docker compose para rodar o banco PostgreSQL e MySQL
 ```docker compose up -d```
 6. Por fim executamos a imagem, que foi criada no topico 3, com alguns parametros
-```docker run -p 8000:8000 --network=backend --name=app```
+```docker run -p 8000:8000 --network=backend --name=app nome_imagem```
 
 ---
 
